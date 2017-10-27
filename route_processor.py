@@ -16,7 +16,7 @@ def main():
             DisplayList.present_list()
 
         elif menu_option_choice == 3:
-            pass
+            DeleteItem.choose_task_to_delete()
 
         elif menu_option_choice == 4:
             pass
