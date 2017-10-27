@@ -15,11 +15,10 @@ class AddItem(Controler):
         
         Functions:
             add_name -- creates string name within the lenght of 20 letters
-            add_description -- creates string description up to the lenght of 150 letters'''
+            add_description -- creates string description up to the lenght of 150 letters
+            add_todo_item -- creates an instance of the class and add it to the task list'''
 
     def __init__(self):
-        self.name = ''
-        self.description = ''
         self.is_done = False
 
     def add_name(self):
@@ -64,10 +63,24 @@ class AddItem(Controler):
                 else:
                     sys.exit()
 
+    def __str__(self):
+        if self.is_done:
+            return "[x] -- " + self.task_name + " (" + self.task_description + ")\n"
+        else:
+            return "[ ] -- " + self.task_name + " (" + self.task_description + ")\n"
 
+    def add_todo_item():
+        new_item = AddItem()
+        new_item.add_name()
+        new_item.add_description()
+        task_list.todo_list.append(new_item)
+        new_task_msg()
 
+    
 class DisplayList(Controler):
-    pass
+    
+    def present_list():
+        print_task_list(task_list.todo_list)
 
 class DeleteItem(Controler):
     pass
@@ -82,10 +95,5 @@ class ModifyItem(Controler):
     pass
 
 
-def add_todo_item():
-    new_item = AddItem()
-    new_item.add_name()
-    new_item.add_description()
-    task_list.todo_list.append(new_item)
-    new_task_msg()
+
     

@@ -44,5 +44,22 @@ def new_task_msg():
     time.sleep(2)
 
 
+def print_task_list(task_list):
+    '''present task list in order that they were added'''
+
+    clean_screen()
+    if task_list == []:
+        print('''
+        You have no task at the moment
+        Add more if you wish!''')
+    else:
+        index = 1
+        for element in task_list:
+            print(str(index) + ". " + element.__str__())
+            index += 1
+
+    input("\n\nPush any button to continue...")
+
+
 def clean_screen():
     os.system('clear')

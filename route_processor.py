@@ -8,18 +8,25 @@ def main():
     welcome_message()
     while True:
         menu_option_choice = print_menu()
+
         if menu_option_choice == 1:
-            add_todo_item()
+            AddItem.add_todo_item()
+
         elif menu_option_choice == 2:
-            pass
+            DisplayList.present_list()
+
         elif menu_option_choice == 3:
             pass
+
         elif menu_option_choice == 4:
             pass
+
         elif menu_option_choice == 5:
             pass
+
         elif menu_option_choice == 6:
             pass
+            
         elif menu_option_choice == 7:
             sys.exit()
 
