@@ -22,7 +22,7 @@ def main():
             DisplayItem.select_item_to_display()
 
         elif menu_option_choice == 5:
-            pass
+            MarkItemDone.select_task_done()
 
         elif menu_option_choice == 6:
             pass

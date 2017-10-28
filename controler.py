@@ -123,6 +123,7 @@ class DeleteItem(Controler):
 
 class DisplayItem(AddItem):
     '''reaches for data_model.todo_list to select specific task by index and process it to view'''
+
     @staticmethod
     def select_item_to_display():
         adjust_index_to_list = 1
@@ -148,7 +149,31 @@ class DisplayItem(AddItem):
 
 
 class MarkItemDone(Controler):
-    pass
+    '''reaches for data_model.todo_list to mark specific task as done'''
+
+    @staticmethod
+    def select_task_done():
+        adjust_index_to_list = 1
+
+        while True:
+            try:
+                system('clear')
+                task_index = int(input('Please enter index of a task you want to mark as done: '))
+                task_list.todo_list[(task_index - adjust_index_to_list)].is_done = True
+                mark_done_msg()
+                break
+
+            except ValueError:
+                decide_if_continue = input('''
+                Index of an item should be an integer
+                if you want to see the list go back to menu
+                and choose option '2'.
+
+                Do you want to continue operation? [Y/N]:''')
+                if decide_if_continue.upper() == "Y":
+                    continue
+                else:
+                    break
 
 class ModifyItem(Controler):
     pass

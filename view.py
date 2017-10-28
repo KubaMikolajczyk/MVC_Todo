@@ -39,6 +39,7 @@ def print_menu():
 
 def new_task_msg():
     '''reports when controler.add_task will be succesfully completed'''
+
     clean_screen()
     print('Task was added succesfully! :)')
     time.sleep(2)
@@ -46,6 +47,7 @@ def new_task_msg():
 
 def remove_task_msg():
     '''inform the user about controler.delete_task succesfull operation'''
+
     clean_screen()
     print('Task was deleted from the list! ')
     time.sleep(2)
@@ -88,6 +90,14 @@ def print_specific_task(task_list, task_index):
         else:
             index += 1
     input("\n\nPush any button to continue...")
+
+
+def mark_done_msg():
+    '''inform the user about controler.mark_done_task succesfull operation'''
+
+    clean_screen()
+    print('Task you selected is now marked as done! :)')
+    time.sleep(2)
 
 
 def clean_screen():
