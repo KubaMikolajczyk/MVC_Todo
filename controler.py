@@ -17,6 +17,7 @@ class AddItem(Controler):
             add_name -- creates string name within the lenght of 20 letters
             add_description -- creates string description up to the lenght of 150 letters
             add_todo_item -- creates an instance of the class and add it to the task list
+            check_if_in_task_list -- used by other classes to check if instance is part of task list
             __str__ -- format the way each item will be presented in list'''
 
     def __init__(self):
@@ -75,6 +76,9 @@ class AddItem(Controler):
             return "[x] -- " + self.task_name
         else:
             return "[ ] -- " + self.task_name
+
+    def check_if_in_task_list(self):
+        return True
     
     @staticmethod
     def add_todo_item():
@@ -100,25 +104,43 @@ class DeleteItem(Controler):
     def choose_task_to_delete():
         adjust_index_to_list = 1
 
-        while True:
-            try:
-                system('clear')
-                task_index = int(input('Please enter index of a task you want to delete: '))
-                task_list.todo_list.pop((task_index - adjust_index_to_list))
-                remove_task_msg()
-                break
+        if task_list.todo_list == []:
+            empty_task_list_msg()
+        else:
 
-            except ValueError:
-                decide_if_continue = input('''
-                Index of an item should be an integer
-                if you want to see the list go back to menu
-                and choose option '2'.
+            while True:
 
-                Do you want to continue operation? [Y/N]:''')
-                if decide_if_continue.upper() == "Y":
-                    continue
-                else:
-                    break
+                try:
+                    system('clear')
+                    task_index = int(input('Please enter index of a task you want to delete: '))
+                    try:
+                        task_list.todo_list.pop((task_index - adjust_index_to_list))
+                        remove_task_msg()
+                        break
+
+                    except IndexError:
+                        decide_if_continue = input('''
+                            The task that you just selected does not exist
+                            to see all actual tasks go back to menu
+                            and choose option '2'.
+                            
+                            Do you wish to continue operation? [Y/N]:''')
+                        if decide_if_continue.upper() == "Y":
+                            continue
+                        else:
+                            break
+
+                except ValueError:
+                    decide_if_continue = input('''
+                    Index of an item should be an integer
+                    if you want to see the list go back to menu
+                    and choose option '2'.
+
+                    Do you want to continue operation? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break
 
 
 class DisplayItem(AddItem):
@@ -128,24 +150,29 @@ class DisplayItem(AddItem):
     def select_item_to_display():
         adjust_index_to_list = 1
 
-        while True:
-            try:
-                system('clear')
-                task_index = int(input('Please enter index of a task you want to see: '))
-                print_specific_task(task_list.todo_list, task_index)
-                break
+        if task_list.todo_list == []:
+            empty_task_list_msg()
+        else:
 
-            except ValueError:
-                decide_if_continue = input('''
-                Index of an item should be an integer
-                if you want to see the list go back to menu
-                and choose option '2'.
+            while True:
 
-                Do you want to continue operation? [Y/N]:''')
-                if decide_if_continue.upper() == "Y":
-                    continue
-                else:
+                try:
+                    system('clear')
+                    task_index = int(input('Please enter index of a task you want to see: '))
+                    print_specific_task(task_list.todo_list, task_index)
                     break
+
+                except ValueError:
+                    decide_if_continue = input('''
+                    Index of an item should be an integer
+                    if you want to see the list go back to menu
+                    and choose option '2'.
+
+                    Do you want to continue operation? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break
 
 
 class MarkItemDone(Controler):
@@ -155,25 +182,44 @@ class MarkItemDone(Controler):
     def select_task_done():
         adjust_index_to_list = 1
 
-        while True:
-            try:
-                system('clear')
-                task_index = int(input('Please enter index of a task you want to mark as done: '))
-                task_list.todo_list[(task_index - adjust_index_to_list)].is_done = True
-                mark_done_msg()
-                break
+        if task_list.todo_list == []:
+            empty_task_list_msg()
+        else:
 
-            except ValueError:
-                decide_if_continue = input('''
-                Index of an item should be an integer
-                if you want to see the list go back to menu
-                and choose option '2'.
+            while True:
+                
+                try:
+                    system('clear')
+                    task_index = int(input('Please enter index of a task you want to mark as done: '))
+                    
+                    try:
+                        task_list.todo_list[(task_index - adjust_index_to_list)].is_done = True
+                        mark_done_msg()
+                        break
 
-                Do you want to continue operation? [Y/N]:''')
-                if decide_if_continue.upper() == "Y":
-                    continue
-                else:
-                    break
+                    except IndexError:
+                        decide_if_continue = input('''
+                            The task that you just selected does not exist
+                            to see all actual tasks go back to menu
+                            and choose option '2'.
+                            
+                            Do you wish to continue operation? [Y/N]:''')
+                        if decide_if_continue.upper() == "Y":
+                            continue
+                        else:
+                            break
+
+                except ValueError:
+                    decide_if_continue = input('''
+                    Index of an item should be an integer
+                    if you want to see the list go back to menu
+                    and choose option '2'.
+
+                    Do you want to continue operation? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break
 
 
 class ModifyItem(Controler):
@@ -248,23 +294,45 @@ class ModifyItem(Controler):
     def modify_specified_task():
         adjust_index_to_list = 1
 
-        while True:
-            try:
-                system('clear')
-                task_index = int(input('Please enter index of a task you want to modify: '))
-                ModifyItem.edit_name(task_index, adjust_index_to_list)
-                ModifyItem.edit_description(task_index, adjust_index_to_list)
-                edit_done_msg()
-                break
+        if task_list.todo_list == []:
+            empty_task_list_msg()
+        else:
 
-            except ValueError:
-                decide_if_continue = input('''
-                Index of an item should be an integer
-                if you want to see the list go back to menu
-                and choose option '2'.
+            while True:
 
-                Do you want to continue operation? [Y/N]:''')
-                if decide_if_continue.upper() == "Y":
-                    continue
-                else:
+                try:
+                    system('clear')
+                    task_index = int(input('Please enter index of a task you want to modify: '))
+
+                    try:
+                        if task_list.todo_list[(task_index - adjust_index_to_list)].check_if_in_task_list():
+                            pass
+
+                    except IndexError:
+                        decide_if_continue = input('''
+                            The task that you just selected does not exist
+                            to see all actual tasks go back to menu
+                            and choose option '2'.
+                            
+                            Do you wish to continue operation? [Y/N]:''')
+                        if decide_if_continue.upper() == "Y":
+                            continue
+                        else:
+                            break
+
+                    ModifyItem.edit_name(task_index, adjust_index_to_list)
+                    ModifyItem.edit_description(task_index, adjust_index_to_list)
+                    edit_done_msg()
                     break
+
+                except ValueError:
+                    decide_if_continue = input('''
+                    Index of an item should be an integer
+                    if you want to see the list go back to menu
+                    and choose option '2'.
+
+                    Do you want to continue operation? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break

@@ -111,3 +111,13 @@ def edit_done_msg():
 def clean_screen():
     '''additional function for easier maintining terminal cleaning'''
     os.system('clear')
+
+
+def empty_task_list_msg():
+    '''inform user when he try to operate on empty task list'''
+
+    clean_screen()
+    print('''
+    You have no task at the moment
+    Add more if you wish!''')
+    input('\nPush any button to continue..')
