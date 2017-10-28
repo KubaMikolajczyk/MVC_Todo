@@ -72,10 +72,11 @@ class AddItem(Controler):
 
     def __str__(self):
         if self.is_done:
-            return "[x] -- " + self.task_name + " (" + self.task_description + ")\n"
+            return "[x] -- " + self.task_name
         else:
-            return "[ ] -- " + self.task_name + " (" + self.task_description + ")\n"
-
+            return "[ ] -- " + self.task_name
+    
+    @staticmethod
     def add_todo_item():
         new_item = AddItem()
         new_item.add_name()
@@ -87,12 +88,15 @@ class AddItem(Controler):
 class DisplayList(Controler):
     '''connect with data_model to gather actual list and pass it to view.print_task_list'''
 
+    @staticmethod
     def present_list():
         print_task_list(task_list.todo_list)
 
 
 class DeleteItem(Controler):
+    '''reach to data_model to gather actual list and delete an item by index'''
 
+    @staticmethod
     def choose_task_to_delete():
         adjust_index_to_list = 1
 
@@ -101,23 +105,47 @@ class DeleteItem(Controler):
                 system('clear')
                 task_index = int(input('Please enter index of a task you want to delete: '))
                 task_list.todo_list.pop((task_index - adjust_index_to_list))
+                remove_task_msg()
                 break
 
             except ValueError:
                 decide_if_continue = input('''
                 Index of an item should be an integer
-                if you want to see the list go back to menu 
-                and choose option '2'. 
-                
+                if you want to see the list go back to menu
+                and choose option '2'.
+
                 Do you want to continue operation? [Y/N]:''')
                 if decide_if_continue.upper() == "Y":
                     continue
                 else:
                     break
-        
 
-class DisplayItem(Controler):
-    pass
+
+class DisplayItem(AddItem):
+    '''reaches for data_model.todo_list to select specific task by index and process it to view'''
+    @staticmethod
+    def select_item_to_display():
+        adjust_index_to_list = 1
+
+        while True:
+            try:
+                system('clear')
+                task_index = int(input('Please enter index of a task you want to see: '))
+                print_specific_task(task_list.todo_list, task_index)
+                break
+
+            except ValueError:
+                decide_if_continue = input('''
+                Index of an item should be an integer
+                if you want to see the list go back to menu
+                and choose option '2'.
+
+                Do you want to continue operation? [Y/N]:''')
+                if decide_if_continue.upper() == "Y":
+                    continue
+                else:
+                    break
+
 
 class MarkItemDone(Controler):
     pass

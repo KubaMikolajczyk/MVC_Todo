@@ -19,7 +19,7 @@ def main():
             DeleteItem.choose_task_to_delete()
 
         elif menu_option_choice == 4:
-            pass
+            DisplayItem.select_item_to_display()
 
         elif menu_option_choice == 5:
             pass

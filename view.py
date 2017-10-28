@@ -44,6 +44,13 @@ def new_task_msg():
     time.sleep(2)
 
 
+def remove_task_msg():
+    '''inform the user about controler.delete_task succesfull operation'''
+    clean_screen()
+    print('Task was deleted from the list! ')
+    time.sleep(2)
+
+
 def print_task_list(task_list):
     '''present task list in order that they were added'''
 
@@ -55,11 +62,34 @@ def print_task_list(task_list):
     else:
         index = 1
         for element in task_list:
-            print(str(index) + ". " + element.__str__())
+            print("\n" + str(index) + ". " + element.__str__())
             index += 1
 
     input("\n\nPush any button to continue...")
 
 
+def print_specific_task(task_list, task_index):
+    '''present specific task using index provided by user
+    
+    index -- starting index in list iteration
+    adjust_index_to_list -- additional variable to deal with diffrences between ui and lists
+    adjust_index_to_format -- additional variable to prepare our index for formating for ui
+    '''
+
+    index = 0
+    adjust_index_to_list = 1
+    adjust_index_to_format = 1
+    
+    clean_screen()
+    for element in task_list:
+        if index == (task_index - adjust_index_to_list):
+            print('\n' + str(index + adjust_index_to_format) + ". " + element.__str__() \
+            + ' (' + element.task_description + ')')
+        else:
+            index += 1
+    input("\n\nPush any button to continue...")
+
+
 def clean_screen():
+    '''additional function for easier maintining terminal cleaning'''
     os.system('clear')
