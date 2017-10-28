@@ -1,11 +1,14 @@
 from view import *
 from controler import *
+from data_model import *
 import sys
 
 
 def main():
     '''main loop of the program'''
     User.input_name()
+    LoadFromFile.loading_file()
+
     while True:
         menu_option_choice = MenuChoice.choose_from_menu()
 
@@ -28,10 +31,13 @@ def main():
             ModifyItem.modify_specified_task()
 
         elif menu_option_choice == 7:
-            pass
+            SaveToFile.update_file()
             
         elif menu_option_choice == 8:
             sys.exit()
+
+        elif menu_option_choice == 9:
+            pass
 
 if __name__ == "__main__":
     main()

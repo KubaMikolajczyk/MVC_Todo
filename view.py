@@ -20,7 +20,7 @@ def intro_screen():
                         ~~~
                          ~
 
-        Welcome to MVC Todo project app 1.11
+        Welcome to MVC Todo project app 1.13
 
     ''')
     input('\n Press any button to continue...')
@@ -117,4 +117,26 @@ def empty_task_list_msg():
     print('''
     You have no task at the moment
     Add more if you wish!''')
+    input('\nPush any button to continue..')
+
+
+def empty_task_list_creation_msg():
+    '''inform user that new empty task list will be created'''
+
+    clean_screen()
+    print('''
+    There will be new empty task list created for you!''')
+    input('\nPush any button to continue..')
+
+
+def file_not_found_msg(file_name):
+    '''inform user about incorrectly inputed name of file'''
+
+    if file_name == "":
+        file_name = "'blank'"
+    clean_screen()
+    print('''
+    Unfortunatelly there is no such file as {0}
+
+    There will be new empty task list created for you!'''.format(file_name))
     input('\nPush any button to continue..')

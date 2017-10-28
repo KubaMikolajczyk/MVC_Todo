@@ -187,11 +187,11 @@ class MarkItemDone(Controler):
         else:
 
             while True:
-                
+
                 try:
                     system('clear')
                     task_index = int(input('Please enter index of a task you want to mark as done: '))
-                    
+
                     try:
                         task_list.todo_list[(task_index - adjust_index_to_list)].is_done = True
                         mark_done_msg()
@@ -202,7 +202,7 @@ class MarkItemDone(Controler):
                             The task that you just selected does not exist
                             to see all actual tasks go back to menu
                             and choose option '2'.
-                            
+
                             Do you wish to continue operation? [Y/N]:''')
                         if decide_if_continue.upper() == "Y":
                             continue
@@ -224,7 +224,7 @@ class MarkItemDone(Controler):
 
 class ModifyItem(Controler):
     '''reaches for data_model.todo_list to select specified task
-    
+
     Functions:
         edit_name -- asks user to enter new name if wanted
         edit_description -- asks user to enter new description if wanted
@@ -339,6 +339,7 @@ class ModifyItem(Controler):
 
 
 class User(Controler):
+    '''control the flow of user experiance by name recognition/ inormative function'''
 
     def input_name():
         '''Call function to print an intro screen and pass the input name to welcome user'''
@@ -351,6 +352,7 @@ class User(Controler):
 
 
 class MenuChoice(Controler):
+    '''continuosly called through route_processor to gather user input'''
 
     @staticmethod
     def choose_from_menu():
@@ -377,3 +379,43 @@ class MenuChoice(Controler):
             except ValueError:
                 print("Im sorry but you have to choose a number. Try again.")
                 time.sleep(2)
+
+
+class LoadFromFile(Controler):
+    
+    def loading_file():
+        loading_choice = input('''
+
+        Do you want to load a task list from file? [Y/N]
+        (optionaly new empty task list will be created)
+        
+        ''')
+        if loading_choice.upper() != 'Y':
+            empty_task_list_creation_msg()
+
+        else:
+            system('clear')
+            file_name = input('''
+            Enter name of the file you want to open
+            along with .csv extension
+            e.g. filename.csv
+
+
+            ''')
+            try:
+                FileOperations.loading_from_file(file_name)
+
+            except FileNotFoundError:
+                file_not_found_msg(file_name)
+
+
+class SaveToFile(Controler):
+    '''recieve specified by the user file name and push it to data_model'''
+
+    def update_file():
+        system('clear')
+        file_name = input('Please enter the name of the file you want to save to: ')
+        file_name = file_name + '.csv'
+        
+        FileOperations.saving_to_file(file_name)
+                
