@@ -5,9 +5,9 @@ import sys
 
 def main():
     '''main loop of the program'''
-    welcome_message()
+    User.input_name()
     while True:
-        menu_option_choice = print_menu()
+        menu_option_choice = MenuChoice.choose_from_menu()
 
         if menu_option_choice == 1:
             AddItem.add_todo_item()
@@ -26,8 +26,11 @@ def main():
 
         elif menu_option_choice == 6:
             ModifyItem.modify_specified_task()
-            
+
         elif menu_option_choice == 7:
+            pass
+            
+        elif menu_option_choice == 8:
             sys.exit()
 
 if __name__ == "__main__":

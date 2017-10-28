@@ -143,7 +143,7 @@ class DeleteItem(Controler):
                         break
 
 
-class DisplayItem(AddItem):
+class DisplayItem(Controler):
     '''reaches for data_model.todo_list to select specific task by index and process it to view'''
 
     @staticmethod
@@ -336,3 +336,44 @@ class ModifyItem(Controler):
                         continue
                     else:
                         break
+
+
+class User(Controler):
+
+    def input_name():
+        '''Call function to print an intro screen and pass the input name to welcome user'''
+
+        intro_screen()
+        name = input("\nCan you please enter your name: ")
+        if name == '':
+            name = 'User'
+        personalized_welcome_message(name)
+
+
+class MenuChoice(Controler):
+
+    @staticmethod
+    def choose_from_menu():
+
+        time.sleep(1)
+
+        while True:
+
+            try:
+                clean_screen()
+                menu_choice = int(input('''
+                You can choose from:
+                1. Add new task
+                2. Show all tasks
+                3. Remove task
+                4. Display specific task
+                5. Mark task as done
+                6. Modify task
+                7. Save the task list
+                8. Exit program
+
+                '''))
+                return menu_choice
+            except ValueError:
+                print("Im sorry but you have to choose a number. Try again.")
+                time.sleep(2)
