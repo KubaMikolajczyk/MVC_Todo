@@ -61,7 +61,7 @@ class AddItem(Controler):
 
             except LenghtError:
                 decide_if_continue = input('''
-                Name of the task should be at least one letter long
+                Description of the task should be at least one letter long
                 but can't be longer than 150 letters. 
                 
                 Do you wish to continue? [Y/N]:''')
@@ -175,9 +175,96 @@ class MarkItemDone(Controler):
                 else:
                     break
 
+
 class ModifyItem(Controler):
-    pass
-
-
-
+    '''reaches for data_model.todo_list to select specified task
     
+    Functions:
+        edit_name -- asks user to enter new name if wanted
+        edit_description -- asks user to enter new description if wanted
+        modify_specified_task -- perform functions above after specified task selection by index
+    '''
+
+    @staticmethod
+    def edit_name(task_index, adjust_index_to_list):
+        max_len = 20
+        min_len = 1
+
+        system('clear')
+        name_edition_choice = input('Do you want to edit name of the task? [Y/N]')
+        if name_edition_choice.upper() == 'Y':
+
+            while True:
+
+                try:
+                    system('clear')
+                    new_task_name = input('Please enter new name for the task: ')
+                    if len(new_task_name) > max_len or len(new_task_name) < min_len:
+                            raise LenghtError("This string is not required lenght")
+                    task_list.todo_list[(task_index - adjust_index_to_list)].task_name = new_task_name
+                    break
+
+                except LenghtError:
+                    decide_if_continue = input('''
+                    Name of the task should be at least one letter long
+                    but can't be longer than 20 letters. 
+                    
+                    Do you wish to continue? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break
+
+    @staticmethod
+    def edit_description(task_index, adjust_index_to_list):
+        max_len = 150
+        min_len = 1
+
+        system('clear')
+        description_edition_choice = input('Do you want to edit description of the task? [Y/N]')
+        if description_edition_choice.upper() == 'Y':
+            while True:
+
+                try:
+                    system('clear')
+                    new_task_description = input('Please enter new description for the task: ')
+                    if len(new_task_description) > max_len or len(new_task_description) < min_len:
+                            raise LenghtError("This string is not required lenght")
+                    task_list.todo_list[(task_index - adjust_index_to_list)].task_description = new_task_description
+                    break
+
+                except LenghtError:
+                    decide_if_continue = input('''
+                    Description of the task should be at least one letter long
+                    but can't be longer than 150 letters. 
+                    
+                    Do you wish to continue? [Y/N]:''')
+                    if decide_if_continue.upper() == "Y":
+                        continue
+                    else:
+                        break
+
+    @staticmethod
+    def modify_specified_task():
+        adjust_index_to_list = 1
+
+        while True:
+            try:
+                system('clear')
+                task_index = int(input('Please enter index of a task you want to modify: '))
+                ModifyItem.edit_name(task_index, adjust_index_to_list)
+                ModifyItem.edit_description(task_index, adjust_index_to_list)
+                edit_done_msg()
+                break
+
+            except ValueError:
+                decide_if_continue = input('''
+                Index of an item should be an integer
+                if you want to see the list go back to menu
+                and choose option '2'.
+
+                Do you want to continue operation? [Y/N]:''')
+                if decide_if_continue.upper() == "Y":
+                    continue
+                else:
+                    break

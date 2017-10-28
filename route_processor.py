@@ -25,7 +25,7 @@ def main():
             MarkItemDone.select_task_done()
 
         elif menu_option_choice == 6:
-            pass
+            ModifyItem.modify_specified_task()
             
         elif menu_option_choice == 7:
             sys.exit()

@@ -100,6 +100,14 @@ def mark_done_msg():
     time.sleep(2)
 
 
+def edit_done_msg():
+    '''inform the user about controler.modify_specified_task succesful operation'''
+
+    clean_screen()
+    print('Task you chose was succesfully edit!')
+    time.sleep(2)
+
+
 def clean_screen():
     '''additional function for easier maintining terminal cleaning'''
     os.system('clear')
